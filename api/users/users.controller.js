@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const usersService = require("./users.service");
 
+
 class UsersController {
   async getAll(req, res, next) {
     try {
@@ -73,6 +74,16 @@ class UsersController {
       next(err);
     }
   }
+  async getUserArticles(req, res, next) {
+    try {
+      const userId = req.params.userId;
+      const userArticles = await usersService.getUserArticles(userId);
+      res.json(userArticles);
+    } catch (err) {
+      next(err);
+    }
+  }
+
 }
 
 module.exports = new UsersController();
